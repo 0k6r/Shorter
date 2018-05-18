@@ -43,4 +43,14 @@ class RedirectControllerTest {
                 .andExpect(MockMvcResultMatchers.status().`is`(REDIRECT_STATUS))
                 .andExpect(MockMvcResultMatchers.header().string(HEADER_NAME, HEADER_VALUE))
     }
+
+    private val BAD_PATH: String = "/asdfghj"
+
+    private val NOT_FOUND: Int = 404
+
+    @Test
+    fun controllerMustReturn404IfBadKey() {
+        mockMvc.perform(MockMvcRequestBuilders.get(BAD_PATH))
+                .andExpect(MockMvcResultMatchers.status().`is`(NOT_FOUND))
+    }
 }

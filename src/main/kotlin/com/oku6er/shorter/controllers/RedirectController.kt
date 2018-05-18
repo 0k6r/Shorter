@@ -14,8 +14,13 @@ class RedirectController {
 
     @RequestMapping()
     fun redirect(@PathVariable("key") key: String, response: HttpServletResponse) {
-        response.setHeader("Location", "https://habr.com")
-        response.status = 302
+        if (key.equals("abcdefg")) {
+            response.setHeader("Location", "https://habr.com")
+            response.status = 302
+        } else {
+            response.status = 404
+        }
+
     }
 
 }
