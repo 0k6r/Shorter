@@ -1,7 +1,9 @@
 package com.oku6er.shorter.service
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.atomic.AtomicLong
 
 /**
  * Class for KeyMapperService implementation.
@@ -9,20 +11,27 @@ import java.util.concurrent.ConcurrentHashMap
 @Component
 class DefaultKeyMapperService : KeyMapperService {
 
-    private val map: MutableMap<String, String> = ConcurrentHashMap()
+    private val map: MutableMap<Long, String> = ConcurrentHashMap()
 
-    override fun add(key: String, link: String): KeyMapperService.Add {
-        return if (map.contains(key)) {
-            KeyMapperService.Add.AlreadyExist(key)
-        } else {
-            map[key] = link
-            KeyMapperService.Add.Success(key, link)
-        }
+    @Autowired
+    lateinit var converter: KeyConverterService
+
+    val sequence = AtomicLong(10000000L)
+
+    override fun add(link: String): String {
+        val id = sequence.getAndIncrement()
+        val key = converter.idToKey(id)
+        map[id] = link
+        return key
     }
 
-    override fun getLink(key: String) = if (map.contains(key)) {
-        KeyMapperService.Get.Link(map[key]!!)
-    } else {
-        KeyMapperService.Get.NotFound(key)
+    override fun getLink(key: String): KeyMapperService.Get {
+        val id = converter.keyToId(key)
+        val result = map[id]
+        if (result == null) {
+            return KeyMapperService.Get.NotFound(key)
+        } else {
+            return KeyMapperService.Get.Link(result)
+        }
     }
 }

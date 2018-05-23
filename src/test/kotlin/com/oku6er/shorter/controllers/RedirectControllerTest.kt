@@ -63,7 +63,6 @@ class RedirectControllerTest {
     }
 
     private val BAD_PATH: String = "asdfghj"
-
     private val NOT_FOUND: Int = 404
 
     @Test
