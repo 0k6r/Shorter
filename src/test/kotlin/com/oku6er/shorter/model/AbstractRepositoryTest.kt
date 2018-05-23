@@ -7,16 +7,14 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.TestExecutionListeners
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests
-import org.springframework.test.context.junit4.SpringRunner
-import org.springframework.test.context.web.WebAppConfiguration
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 /**
  * Class to raise the data context.
  * */
+//TODO: Need fixed annotations or downgrade Spring version 1.3.*
+@RunWith(SpringJUnit4ClassRunner::class)
 @TestExecutionListeners(DbUnitTestExecutionListener::class)
-//@RunWith(SpringRunner::class)
 @SpringBootTest(classes = [(ShorterApplication::class)])
-//@WebAppConfiguration
 @DirtiesContext
-abstract class AbstractRepositoryTest: AbstractTransactionalJUnit4SpringContextTests() {
-}
+abstract class AbstractRepositoryTest : AbstractTransactionalJUnit4SpringContextTests()

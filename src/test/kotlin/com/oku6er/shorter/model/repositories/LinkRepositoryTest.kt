@@ -13,7 +13,7 @@ import java.util.*
 
 @DatabaseSetup(LinkRepositoryTest.DATASET)
 @DatabaseTearDown(type = DatabaseOperation.DELETE_ALL, value = [(LinkRepositoryTest.DATASET)])
-open class LinkRepositoryTest: AbstractRepositoryTest() {
+open class LinkRepositoryTest : AbstractRepositoryTest() {
 
     @Autowired
     lateinit var repository: LinkRepository
@@ -44,8 +44,8 @@ open class LinkRepositoryTest: AbstractRepositoryTest() {
 
     companion object {
         const val DATASET = "classpath:datasets/link-table.xml"
-        private val LINK_1_ID: Long = 100500L
         private val LINK_NOT_FOUND: Long = 1L
+        private val LINK_1_ID: Long = 100500L
         private val LINK_1_TEXT: String = "https://habr.com"
         private val LINK_TBS_TEXT: String = "https://google.com"
     }
