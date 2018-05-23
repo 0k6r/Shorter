@@ -9,7 +9,7 @@ import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 /**
- * Tests for DefaultKeyMapperService class
+ * Tests for {@link DefaultKeyMapperService} class
  * */
 class DefaultKeyMapperServiceTest {
 

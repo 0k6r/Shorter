@@ -1,6 +1,6 @@
 package com.oku6er.shorter.service
 
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.util.*
 
@@ -9,7 +9,7 @@ import java.util.*
  * */
 class DefaultKeyConverterServiceTest {
 
-    val service: KeyConverterService = DefaultKeyConverterService()
+    private val service: KeyConverterService = DefaultKeyConverterService()
 
     @Test
     fun givenIdMustBeConvertableBothWays() {
