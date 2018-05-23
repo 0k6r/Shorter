@@ -14,13 +14,17 @@ class RedirectController {
 
     @RequestMapping()
     fun redirect(@PathVariable("key") key: String, response: HttpServletResponse) {
-        if (key.equals("abcdefg")) {
-            response.setHeader("Location", "https://habr.com")
+        if (key == "abcdefg") {
+            response.setHeader(HEADER_NAME, "https://habr.com")
             response.status = 302
         } else {
             response.status = 404
         }
 
+    }
+
+    companion object {
+        private val HEADER_NAME = "Location"
     }
 
 }
