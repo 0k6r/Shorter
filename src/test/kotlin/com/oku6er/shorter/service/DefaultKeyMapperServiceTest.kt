@@ -1,5 +1,6 @@
 package com.oku6er.shorter.service
 
+import com.oku6er.shorter.whenever
 import org.junit.Test
 import org.junit.Assert.*
 import org.junit.Before
@@ -30,10 +31,10 @@ class DefaultKeyMapperServiceTest {
     @Before
     fun init() {
         MockitoAnnotations.initMocks(this)
-        Mockito.`when`(converter.keyToId(KEY_A)).thenReturn(ID_A)
-        Mockito.`when`(converter.idToKey(ID_A)).thenReturn(KEY_A)
-        Mockito.`when`(converter.keyToId(KEY_B)).thenReturn(ID_B)
-        Mockito.`when`(converter.idToKey(ID_B)).thenReturn(KEY_B)
+        whenever(converter.keyToId(KEY_A)).thenReturn(ID_A)
+        whenever(converter.idToKey(ID_A)).thenReturn(KEY_A)
+        whenever(converter.keyToId(KEY_B)).thenReturn(ID_B)
+        whenever(converter.idToKey(ID_B)).thenReturn(KEY_B)
     }
 
     @Test

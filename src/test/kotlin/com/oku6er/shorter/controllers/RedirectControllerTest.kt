@@ -2,6 +2,7 @@ package com.oku6er.shorter.controllers
 
 import com.oku6er.shorter.ShorterApplication
 import com.oku6er.shorter.service.KeyMapperService
+import com.oku6er.shorter.whenever
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -48,8 +49,8 @@ class RedirectControllerTest {
                 .webAppContextSetup(webApplicationContext)
                 .build()
 
-        Mockito.`when`(service.getLink(PATH)).thenReturn(KeyMapperService.Get.Link(HEADER_VALUE))
-        Mockito.`when`(service.getLink(BAD_PATH)).thenReturn(KeyMapperService.Get.NotFound(BAD_PATH))
+        whenever(service.getLink(PATH)).thenReturn(KeyMapperService.Get.Link(HEADER_VALUE))
+        whenever(service.getLink(BAD_PATH)).thenReturn(KeyMapperService.Get.NotFound(BAD_PATH))
     }
 
     private val PATH: String = "abcdefg"
