@@ -28,10 +28,10 @@ class DefaultKeyMapperService : KeyMapperService {
     override fun getLink(key: String): KeyMapperService.Get {
         val id = converter.keyToId(key)
         val result = map[id]
-        if (result == null) {
-            return KeyMapperService.Get.NotFound(key)
+        return if (result == null) {
+            KeyMapperService.Get.NotFound(key)
         } else {
-            return KeyMapperService.Get.Link(result)
+            KeyMapperService.Get.Link(result)
         }
     }
 }
