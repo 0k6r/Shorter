@@ -3,7 +3,7 @@
 Kotlin microservice project for URL lings cutting.
 
 ## Docker
-Run database:
+Create database from docker container:
 
     ```
     $ docker run --name pgsql-test -e POSTGRES_PASSWORD=password -d -p 6000:5432 postgres
