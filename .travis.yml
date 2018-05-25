@@ -1,5 +1,15 @@
+sudo:
+  required
+
+services:
+  - docker
+
 language: java
 jdk: oraclejdk8
+
+env:
+  global:
+    - COMMIT=${TRAVIS_COMMIT::7}
 
 # git strips the wrapper jar file so we have to force its download during the build
 install:
@@ -8,6 +18,12 @@ install:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+  - docker login -u $D_USER -p $D_PATH
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
+  - export NAME=oku6er/shorter
+  - docker build -t $NAME:$COMMIT .
+  - docker tag $NAME:$COMMIT $NAME:$TAG
+  - docker push $NAME
 
 notifications:
   email:
