@@ -17,7 +17,7 @@ import org.springframework.test.context.TestPropertySource
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.context.web.WebAppConfiguration
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.web.context.WebApplicationContext
@@ -54,24 +54,30 @@ class RedirectControllerTest {
         whenever(service.getLink(BAD_PATH)).thenReturn(KeyMapperService.Get.NotFound(BAD_PATH))
     }
 
-    private val PATH: String = "abcdefg"
+    private val PATH: String = "somePath"
     private val REDIRECT_STATUS: Int = 302
     private val HEADER_NAME: String = "Location"
     private val HEADER_VALUE: String = "https://habr.com"
 
     @Test
     fun controllerMustRedirectUsWhenRequestIsSuccessful() {
-        mockMvc.perform(MockMvcRequestBuilders.get("/$PATH"))
+        mockMvc.perform(get("/$PATH"))
                 .andExpect(MockMvcResultMatchers.status().`is`(REDIRECT_STATUS))
                 .andExpect(MockMvcResultMatchers.header().string(HEADER_NAME, HEADER_VALUE))
     }
 
-    private val BAD_PATH: String = "asdfghj"
+    private val BAD_PATH: String = "someBadPath"
     private val NOT_FOUND: Int = 404
 
     @Test
     fun controllerMustReturn404IfBadKey() {
-        mockMvc.perform(MockMvcRequestBuilders.get("/$BAD_PATH"))
+        mockMvc.perform(get("/$BAD_PATH"))
                 .andExpect(MockMvcResultMatchers.status().`is`(NOT_FOUND))
+    }
+
+    @Test
+    fun homeWorksFine() {
+        mockMvc.perform(get("/"))
+                .andExpect(MockMvcResultMatchers.view().name("home"))
     }
 }
